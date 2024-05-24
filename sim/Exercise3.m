@@ -1,3 +1,5 @@
+% Detection and Estimation Theory Project - Exercise 3
+
 % Load the data from the given file. They will be stored in a variable
 % called data.
 load('../assets/data.mat');
