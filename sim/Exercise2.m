@@ -1,6 +1,7 @@
 addpath ..\src\
 close all;
 
+%%% Experiment parameters
 N_max = 50; % Number of samples
 Exp_per_N = 10; % Number of experiments per N
 
@@ -9,7 +10,7 @@ h = 0.5;
 m_w = 0;
 sigma_w = 2;
 
-% Theta is chosen from a normal distribution N(m_theta, sigma_theta^2)
+%%% Simulation with theta chosen from a normal distribution N(m_theta, sigma_theta^2)
 m_theta = 4;
 sigma_theta = 1;
 theta_norm = m_theta + sigma_theta * randn(1, 1);
@@ -17,18 +18,23 @@ theta_norm = m_theta + sigma_theta * randn(1, 1);
 theta_est_mse_mle = mle_implementation(theta_norm, h, m_w, sigma_w, N_max, Exp_per_N);
 theta_est_mse_mmse = mmse_implementation(theta_norm, m_theta, sigma_theta, h, m_w, sigma_w, N_max, Exp_per_N);
 
+%%% Simulation with theta = 8 (unlikely for N(m_theta, sigma_theta^2))
 theta_not_norm = 8;
 
 theta_est_mse_mle_not_norm = mle_implementation(theta_not_norm, h, m_w, sigma_w, N_max, Exp_per_N);
 theta_est_mse_mmse_not_norm = mmse_implementation(theta_not_norm, m_theta, sigma_theta, h, m_w, sigma_w, N_max, Exp_per_N);
 
+%%% Simulation with theta chosen from different a priori distributions
 
+% Definition of the distributions
 exp_dist = makedist('Exponential', 4);
 uniform_dist = makedist('Uniform', 0, 8);
 
+% Theta sampling
 theta_exp = random(exp_dist, 1);
 theta_uniform = random(uniform_dist, 1);
 
+% Experiment execution
 theta_est_mse_exp = mmse_implementation(theta_exp, m_theta, sigma_theta, h, m_w, sigma_w, N_max, Exp_per_N);
 theta_est_mse_uniform = mmse_implementation(theta_uniform, m_theta, sigma_theta, h, m_w, sigma_w, N_max, Exp_per_N);
 
