@@ -98,7 +98,7 @@ hold on;
 plot(horizontal_axis, rayleigh_pdf_curve, 'Color', 'm');
 xlabel('Data value');
 ylabel('Value of pdf');
-title('Histogram of the data');
+title('Ex.3 - Histogram of the data');
 grid on;
 grid minor;
 legend('Data', 'Mean', 'Exponential Distribution', 'Rayleigh Distribution');
