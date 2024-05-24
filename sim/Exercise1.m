@@ -88,9 +88,13 @@ saveas(f1_2, 'media/ex1_mle_10_samples.jpg');
 % experiment
 
 samples_n = [20 50 100];
+squared_sigma = [ 0 0 0 ];
+for i=1:3
+    squared_sigma(i) = crlb_for_exponential_dist(true_lambda, samples_n(i));
+end
 
 % Ideal estimator - 20 samples per experiment
-ideal_dist_20 = makedist('Normal', true_lambda, sqrt(samples_n(1) * sigma_sq));
+ideal_dist_20 = makedist('Normal', true_lambda, sqrt(samples_n(1) * squared_sigma(1)));
 ideal_pdf_20 = @(n) random(ideal_dist_20, [n, 1]);
 ideal_estimation_20 = experiment(ideal_pdf_20, ideal_estimator, samples_n(1), number_of_experiments);
 fprintf("Ideal estimation (20 samples): mean: %f    var: %f\n", mean(ideal_estimation_20), var(ideal_estimation_20));
@@ -109,7 +113,7 @@ legend('Estimation results', 'True mean', 'Estimation mean');
 saveas(f1_3_1, 'media/ex1_ideal_20_samples.jpg');
 
 % Ideal estimator - 50 samples per experiment
-ideal_dist_50 = makedist('Normal', true_lambda, sqrt(samples_n(2) * sigma_sq));
+ideal_dist_50 = makedist('Normal', true_lambda, sqrt(samples_n(2) * squared_sigma(2)));
 ideal_pdf_50 = @(n) random(ideal_dist_50, [n, 1]);
 ideal_estimation_50 = experiment(ideal_pdf_50, ideal_estimator, samples_n(2), number_of_experiments);
 fprintf("Ideal estimation (50 samples): mean: %f    var: %f\n", mean(ideal_estimation_50), var(ideal_estimation_50));
@@ -128,7 +132,7 @@ legend('Estimation results', 'True mean', 'Estimation mean');
 saveas(f1_3_2, 'media/ex1_ideal_50_samples.jpg');
 
 % Ideal estimator - 100 samples per experiment
-ideal_dist_100 = makedist('Normal', true_lambda, sqrt(samples_n(3) * sigma_sq));
+ideal_dist_100 = makedist('Normal', true_lambda, sqrt(samples_n(3) * squared_sigma(3)));
 ideal_pdf_100 = @(n) random(ideal_dist_100, [n, 1]);
 ideal_estimation_100 = experiment(ideal_pdf_100, ideal_estimator, samples_n(3), number_of_experiments);
 fprintf("Ideal estimation (100 samples): mean: %f    var: %f\n", mean(ideal_estimation_100), var(ideal_estimation_100));
