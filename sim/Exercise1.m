@@ -36,7 +36,7 @@ number_of_samples = 10;
 % distribution. The estimator in this case, is the mean of the data (shown 
 % in in-class theory.).
 sigma_sq = crlb_for_exponential_dist(true_lambda, number_of_samples);
-ideal_dist = makedist('Normal', true_lambda, sqrt(sigma_sq));
+ideal_dist = makedist('Normal', true_lambda, sqrt(number_of_samples * sigma_sq));
 ideal_pdf = @(n) random(ideal_dist, [n, 1]);
 ideal_estimator = @(samples) mean(samples);
 
@@ -90,7 +90,9 @@ saveas(f1_2, 'media/ex1_mle_10_samples.jpg');
 samples_n = [20 50 100];
 
 % Ideal estimator - 20 samples per experiment
-ideal_estimation_20 = experiment(ideal_pdf, ideal_estimator, samples_n(1), number_of_experiments);
+ideal_dist_20 = makedist('Normal', true_lambda, sqrt(samples_n(1) * sigma_sq));
+ideal_pdf_20 = @(n) random(ideal_dist_20, [n, 1]);
+ideal_estimation_20 = experiment(ideal_pdf_20, ideal_estimator, samples_n(1), number_of_experiments);
 fprintf("Ideal estimation (20 samples): mean: %f    var: %f\n", mean(ideal_estimation_20), var(ideal_estimation_20));
 f1_3_1 = figure;
 ideal_histogram_20 = histogram(ideal_estimation_20, 'Normalization', 'pdf');
@@ -107,7 +109,9 @@ legend('Estimation results', 'True mean', 'Estimation mean');
 saveas(f1_3_1, 'media/ex1_ideal_20_samples.jpg');
 
 % Ideal estimator - 50 samples per experiment
-ideal_estimation_50 = experiment(ideal_pdf, ideal_estimator, samples_n(2), number_of_experiments);
+ideal_dist_50 = makedist('Normal', true_lambda, sqrt(samples_n(2) * sigma_sq));
+ideal_pdf_50 = @(n) random(ideal_dist_50, [n, 1]);
+ideal_estimation_50 = experiment(ideal_pdf_50, ideal_estimator, samples_n(2), number_of_experiments);
 fprintf("Ideal estimation (50 samples): mean: %f    var: %f\n", mean(ideal_estimation_50), var(ideal_estimation_50));
 f1_3_2 = figure;
 ideal_histogram_50 = histogram(ideal_estimation_50, 'Normalization', 'pdf');
@@ -124,7 +128,9 @@ legend('Estimation results', 'True mean', 'Estimation mean');
 saveas(f1_3_2, 'media/ex1_ideal_50_samples.jpg');
 
 % Ideal estimator - 100 samples per experiment
-ideal_estimation_100 = experiment(ideal_pdf, ideal_estimator, samples_n(3), number_of_experiments);
+ideal_dist_100 = makedist('Normal', true_lambda, sqrt(samples_n(3) * sigma_sq));
+ideal_pdf_100 = @(n) random(ideal_dist_100, [n, 1]);
+ideal_estimation_100 = experiment(ideal_pdf_100, ideal_estimator, samples_n(3), number_of_experiments);
 fprintf("Ideal estimation (100 samples): mean: %f    var: %f\n", mean(ideal_estimation_100), var(ideal_estimation_100));
 f1_3_3 = figure;
 ideal_histogram_100 = histogram(ideal_estimation_100, 'Normalization', 'pdf');
