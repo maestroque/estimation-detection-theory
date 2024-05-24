@@ -18,7 +18,7 @@ function estimator_mse = mle_implementation(theta, h, m_w, sigma_w, N_max, Exp_p
             % Generate random samples
             w = m_w + sigma_w * randn(N, 1);
             x = h * theta + w;
-            theta_est(j) = 1 / (N * h^2) * sum(h * x);
+            theta_est(j) = mean(x) / h;
         end
         estimator_mse(i) = mean((theta_est - theta).^2);
     end
