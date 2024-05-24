@@ -5,7 +5,6 @@
 load('../assets/data.mat');
 
 data_mean = mean(data);
-sum(data)
 n = size(data, 2);
 data_variance = var(data);
 
